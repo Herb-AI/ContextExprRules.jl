@@ -98,3 +98,38 @@ function get_rulesequence(node::RuleNode, path::Vector{Int})
 		return append!([node.ind], get_rulesequence(node.children[path[begin]], path[2:end]))
 	end
 end
+
+
+
+
+"""
+	Extracts rules in the left subtree defined by the path
+"""
+function rulesonleft(expr::RuleNode, path::Vector{Int})
+	if isempty(expr.children)
+		# if the encoutered node is terminal or non-expanded non-terminal, return node id
+		Set{Int}(expr.ind)
+	elseif isempty(path)
+		# if path is empty, collect the entire subtree
+		ruleset = Set{Int}(expr.ind)
+		for ch in expr.children
+			union!(ruleset, rulesonleft(ch, Vector{Int}()))
+		end
+		return ruleset 
+	elseif length(path) == 1
+		# if there is only one element left in the path, collect all children except the one indicated in the path
+		ruleset = Set{Int}(expr.ind)
+		for i in 1:path[begin]-1
+			union!(ruleset, rulesonleft(expr.children[i], Vector{Int}()))
+		end
+		return ruleset 
+	else
+		# collect all subtrees up to the child indexed in the path
+		ruleset = Set{Int}(expr.ind)
+		for i in 1:path[begin]-1
+			union!(ruleset, rulesonleft(expr.children[i], Vector{Int}()))
+		end
+		union!(ruleset, rulesonleft(expr.children[path[begin]], path[2:end]))
+		return ruleset 
+	end
+end	

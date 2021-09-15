@@ -13,6 +13,7 @@ export  change_expr,
 	swap_node,
 	get_rulesequence,
 	rulesoftype,
+	rulesonleft,
 
 	GrammarContext,
 	addparent!,
@@ -21,6 +22,7 @@ export  change_expr,
 	ValidatorConstraint,
 	PropagatorConstraint,
 	ComesAfter,
+	Ordered,
 
 	propagate,
 

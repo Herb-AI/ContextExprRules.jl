@@ -1,7 +1,7 @@
 name = "ContextExprRules"
 uuid = "185c0484-fb1d-4443-8268-8bb5f8963b42"
 authors = ["Sebastijan Dumancic <sebastijan.dumancic@gmail.com>"]
-version = "0.1.0"
+version = "0.1.1"
 
 [deps]
 ExprRules = "e7058ba0-a568-556c-b31a-209ee9d855a8"
