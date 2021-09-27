@@ -86,16 +86,20 @@ end
 	if the path is deeper than the deepest node, it returns what it has 
 """
 function get_rulesequence(node::RuleNode, path::Vector{Int})
-	if isempty(node.children)
-		return []
+	if node.ind == 0 # sign for empty node 
+		return Vector{Int}()
+	elseif isempty(node.children) # no childnen, nowehere to follow the path; still return the index
+		return [node.ind]
 	elseif isempty(path)
-		if node.ind == 0   # sign for empty node
-			return []
-		else
-			return [node.ind]
-		end
+		return [node.ind]
+	elseif isassigned(path, 2)
+		# at least two items are left in the path
+		# need to access the child with get because it can happen that the child is not yet built
+		return append!([node.ind], get_rulesequence(get(node.children, path[begin], RuleNode(0)), path[2:end]))
 	else
-		return append!([node.ind], get_rulesequence(node.children[path[begin]], path[2:end]))
+		# if only one item left in the path
+		# need to access the child with get because it can happen that the child is not yet built
+		return append!([node.ind], get_rulesequence(get(node.children, path[begin], RuleNode(0)), Vector{Int}()))
 	end
 end
 
