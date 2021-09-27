@@ -15,3 +15,13 @@ add parent to the context
 function addparent!(context::GrammarContext, parent::Int)
 	push!(context.nodeLocation, parent)
 end
+
+
+"""
+	Copies the given context and insert the parent in the node location
+"""
+function copy_and_insert(old_context::GrammarContext, parent::Int)
+	new_context = GrammarContext(old_context.originalExpr, deepcopy(old_context.nodeLocation))
+	push!(new_context.nodeLocation, parent)
+	new_context
+end

@@ -1,15 +1,20 @@
 module ContextExprRules
 
-using ExprRules 
+using ExprRules
+using StatsBase 
 
+include("utils.jl")
 include("rulenode_operators.jl")
 include("context.jl")
 include("constraints.jl")
 include("propagators.jl")
 include("grammar.jl")
+include("sampling.jl")
 
 
-export  change_expr,
+export	containedin,  
+
+	change_expr,
 	swap_node,
 	get_rulesequence,
 	rulesoftype,
@@ -29,6 +34,7 @@ export  change_expr,
 	ContextGrammar,
 	@cgrammar,
 	addconstraint!,
-	ContextExpressionIterator
+	ContextExpressionIterator,
+	propagate_contraints
 
 end # module

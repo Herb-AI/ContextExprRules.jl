@@ -306,3 +306,4 @@ end
     Add constraint to the grammar
 """
 addconstraint!(grammar::ContextGrammar, cons::Constraint) = push!(grammar.constraints, cons)
+
